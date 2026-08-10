@@ -28,6 +28,8 @@ export const registrar = async (req, res) => {
         });
     } catch (erro) {
         res.status(500).json({ mensagem: "Erro ao registrar usuário", erro: erro.message });
+        console.log("🚨 ERRO NO CADASTRO:", erro); // <-- ADICIONE ESTA LINHA AQUI
+        res.status(500).json({ mensagem: "Erro ao registrar usuário", erro: erro.message });
     }
 };
 

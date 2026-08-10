@@ -9,7 +9,7 @@ const usuarioSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true // Não permite e-mails repetidos
+        unique: true
     },
     senha: {
         type: String,
@@ -17,11 +17,10 @@ const usuarioSchema = new mongoose.Schema({
     }
 });
 
-// Hook para criptografar a senha antes de salvar no banco
-usuarioSchema.pre('save', async function (next) {
-    if (!this.isModified('senha')) return next();
+
+usuarioSchema.pre('save', async function () {
+    if (!this.isModified('senha')) return;
     this.senha = await bcrypt.hash(this.senha, 10);
-    next();
 });
 
 const Usuario = mongoose.model("Usuario", usuarioSchema);

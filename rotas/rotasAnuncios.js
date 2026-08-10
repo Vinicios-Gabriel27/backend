@@ -1,5 +1,4 @@
 import express from "express";
-
 import {
     criarAnuncio,
     listarAnuncios,
@@ -7,17 +6,17 @@ import {
     atualizarAnuncio,
     excluirAnuncio
 } from "../controles/controleAnuncios.js";
+import { autenticarToken } from "../middleware/autenticar.js";
 
 const rotas = express.Router();
 
-rotas.post("/", criarAnuncio);
-
+// Rotas públicas (qualquer um pode ver)
 rotas.get("/", listarAnuncios);
-
 rotas.get("/:id", buscarAnuncio);
 
-rotas.put("/:id", atualizarAnuncio);
-
-rotas.delete("/:id", excluirAnuncio);
+// Rotas protegidas (exigem estar logado)
+rotas.post("/", autenticarToken, criarAnuncio);
+rotas.put("/:id", autenticarToken, atualizarAnuncio);
+rotas.delete("/:id", autenticarToken, excluirAnuncio);
 
 export default rotas;
