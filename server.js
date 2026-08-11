@@ -3,7 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import rotasAnuncio from "./rotas/rotasAnuncios.js";
-import rotasUsuarios from "./rotas/rotasUsuarios.js"; // <-- NOVO
+import rotasUsuarios from "./rotas/rotasUsuarios.js"; 
 
 dotenv.config();
 const app = express();
@@ -17,10 +17,8 @@ mongoose.connect(process.env.MONGODB_URI)
 app.get("/", (req, res) => {
     res.json({ mensagem: "API do Marketplace Vortex funcionando!" });
 });
-
-// Nossas rotas
 app.use("/anuncios", rotasAnuncio);
-app.use("/usuarios", rotasUsuarios); // <-- NOVO
+app.use("/usuarios", rotasUsuarios); 
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));

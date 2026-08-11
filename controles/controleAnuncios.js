@@ -23,7 +23,7 @@ export const listarAnuncios = async (req, res) => {
         let filtro = {};
 
         if (categoria) filtro.categoria = categoria;
-        if (usuario) filtro.usuario = usuario; // Permite filtrar por usuário no Perfil
+        if (usuario) filtro.usuario = usuario;
 
         const anuncios = await Anuncio.find(filtro).sort({ createdAt: -1 });
         res.json(anuncios);
@@ -54,7 +54,6 @@ export const atualizarAnuncio = async (req, res) => {
             return res.status(404).json({ mensagem: "Anúncio não encontrado" });
         }
 
-        // Garante que só o dono pode atualizar
         if (anuncio.usuario.toString() !== req.usuarioId) {
             return res.status(403).json({ mensagem: "Sem permissão para alterar este anúncio" });
         }
@@ -78,7 +77,6 @@ export const excluirAnuncio = async (req, res) => {
             return res.status(404).json({ mensagem: "Anúncio não encontrado" });
         }
 
-        // Garante que só o dono pode excluir
         if (anuncio.usuario.toString() !== req.usuarioId) {
             return res.status(403).json({ mensagem: "Sem permissão para excluir este anúncio" });
         }
